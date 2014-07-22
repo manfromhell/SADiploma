@@ -3,7 +3,6 @@ package sa.main;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -15,7 +14,7 @@ import sa.data.Solution;
 import sa.readers_Writers.ConfigReader;
 import sa.readers_Writers.LogWriter;
 
-public class SimAnnealing {
+public class SimAnnealing implements Runnable{
 	private static double INITIAL_TEMPERATURE;
 	private static double FINAL_TEMPERATURE;
 	private static double ALPHA;
@@ -160,6 +159,11 @@ public class SimAnnealing {
 			arr[i] = list.get(i);
 		}
 		return arr;
+	}
+
+	@Override
+	public void run() {
+		
 	}
 
 }
