@@ -6,9 +6,21 @@
 </head>
 <body>
 <h1>
-	Hello world!  
+	 
 </h1>
+<table>
+	<tr>
+	<td>Initial temperature</td>
+	<td>Final temperature</td>
+	<td>Alpha</td>
+	<td>Temperature iteration</td>
+	<td>Number</td>
+	<td>Type</td>
+	</tr>
+	<tr>
+	<td></td>
+	</tr>
+	</table> 
 
-<P>  The time on the server is ${serverTime}. </P>
 </body>
 </html>
