@@ -1,7 +1,20 @@
 package ua.edu.lp.sadiploma.entity;
 
-public class InputData {
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="INPUT_DATA")
+public class InputData extends BaseEntity {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3975545484495454331L;
 	private boolean treeType;
 	private String parentCode;
 	private String numbers;
@@ -14,6 +27,9 @@ public class InputData {
 	public InputData() {
 		
 	}
+	
+	@OneToMany(mappedBy = "inputData", orphanRemoval = true)
+	private List<OutputData> outputData = new ArrayList<OutputData>();
 
 	/**
 	 * @return the treeType
