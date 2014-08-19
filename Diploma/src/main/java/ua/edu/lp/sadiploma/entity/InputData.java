@@ -1,15 +1,22 @@
 package ua.edu.lp.sadiploma.entity;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name="INPUT_DATA")
-public class InputData extends BaseEntity {
+public class InputData{
 	
 	/**
 	 * 
@@ -23,6 +30,15 @@ public class InputData extends BaseEntity {
 	private int tempIter;
 	private long timeForComputing;
 	private long timeForOutputCurrentRes;
+	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
+	@Column(name = "ID")
+	private Long id;
+	
+	@Column(name = "CREATED", insertable = false, nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	@DateTimeFormat(pattern="dddd, dd MMMM yyyy	hh:mm tt")
+	private Date created;
 	
 	public InputData() {
 		
