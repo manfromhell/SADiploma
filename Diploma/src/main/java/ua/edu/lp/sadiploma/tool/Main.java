@@ -1,6 +1,6 @@
 package ua.edu.lp.sadiploma.tool;
 
-import java.util.Arrays;
+import java.util.List;
 
 public class Main {
 
@@ -11,12 +11,23 @@ public class Main {
 		 * Node(4,4,root)); System.out.println("Root!: "+root);
 		 * System.out.println("Found: "+root.findComponent(3));
 		 */
-		Component component = new Node().generateTree("0,1,1,1,3,3,4,6",
-				"1,2,3,4,5,6,7,8");
-		System.out.println(component.getAllValues());
+		//Component component = new Node().generateTree("0,1,1,1,3,3,4,6",
+				//"1,2,3,4,5,6,7,8");
+		Component component = new Node().generateTree("0,1,1,3",
+				"1,2,3,4");
+		System.out.println(component);
+		/*
 		System.out.println(component.getSize());
 		System.out.println(Arrays.deepToString(component.createTable(Arrays.asList(0,1,1,1,3,3,4,6))).replaceAll("\\], \\[", "\\],\n \\["));
-		System.err.println(component);
+		System.err.println(component);*/
+		
+//		System.out.println(component.getAllCombinations(component));
+		for (List<Component> list : component.getAllCombinations(component)) {
+			for (Component c : list) {
+				System.out.print(c.getIndex()+" ");
+			}
+			System.out.println();
+		}
+		
 	}
-
 }

@@ -8,16 +8,37 @@ public class Node implements Component {
 	private int index;
 	private int value;
 	private boolean endOfChain;
+	private List<Integer> parentCode;
+
+	/**
+	 * @param index
+	 * @param value
+	 * @param endOfChain
+	 * @param parentNode
+	 * @param components
+	 */
+	public Node(Component component) {
+		super();
+		this.index = component.getIndex();
+		this.value = component.getValue();
+		this.endOfChain = component.getEndOfChain();
+		this.parentNode = component.getParentNode();
+		this.components = component.getComponents();
+	}
+
 	/**
 	 * @return the endOfChain
 	 */
-	public boolean isEndOfChain() {
+	@Override
+	public boolean getEndOfChain() {
 		return endOfChain;
 	}
 
 	/**
-	 * @param endOfChain the endOfChain to set
+	 * @param endOfChain
+	 *            the endOfChain to set
 	 */
+	@Override
 	public void setEndOfChain(boolean endOfChain) {
 		this.endOfChain = endOfChain;
 	}
@@ -77,6 +98,7 @@ public class Node implements Component {
 		return null;
 	}
 
+	@Override
 	public int getIndex() {
 		return index;
 	}
@@ -119,19 +141,19 @@ public class Node implements Component {
 	@Override
 	public Component generateTree(String parentCode, String data) {
 		String[] parentCodeArray = parentCode.split("[, /;-]|(, )");
-		int[] parentCodeArrayInt = new int[parentCodeArray.length];
+		this.parentCode = new ArrayList<Integer>();
 		String[] dataArray = data.split("[, /;-]|(, )");
 		int[] dataArrayInt = new int[dataArray.length];
 
 		for (int i = 0; i < parentCodeArray.length; i++) {
-			parentCodeArrayInt[i] = Integer.parseInt(parentCodeArray[i]);
+			this.parentCode.add(Integer.parseInt(parentCodeArray[i]));
 			dataArrayInt[i] = Integer.parseInt(dataArray[i]);
 		}
-		System.out.println(Arrays.toString(parentCodeArrayInt) + "\n"
+		System.out.println(this.parentCode + "\n"
 				+ Arrays.toString(dataArrayInt));
 		Component root = new Node(dataArrayInt[0]);
 		for (int i = 1; i < dataArrayInt.length; i++) {
-			Component component = root.findComponent(parentCodeArrayInt[i]);
+			Component component = root.findComponent(this.parentCode.get(i));
 			component.addComponent(new Node(i + 1, dataArrayInt[i], component));
 		}
 		return root;
@@ -170,8 +192,134 @@ public class Node implements Component {
 	public int[][] createTable(List<Integer> parentCode) { // List<List<Integer>>
 		int[][] result = new int[this.getSize()][this.getSize()];
 		for (int col = 1; col < getSize(); col++) {
-			result[parentCode.get(col)-1][col] = 1;
+			result[parentCode.get(col) - 1][col] = 1;
 		}
 		return result;
 	}
+
+	@Override
+	public List<List<Component>> getAllCombinations(Component root) {
+		List<List<Component>> components = new ArrayList<List<Component>>();
+		int[][] matrix = root.createTable(this.parentCode);
+		for (int row = 0; row < matrix.length; row++) {
+			for (int column = 0; column < matrix[0].length; column++) {
+				if (matrix[row][column] == 1) {
+					Component c1 = root.findComponent(row + 1);
+					c1.setEndOfChain(true);
+					Component c2 = root.findComponent(column + 1);
+					c2.setEndOfChain(true);
+					components.add(Arrays.asList(c1, c2));
+				}
+			}
+		}
+
+		List<List<Component>> tmpResult;
+		do {
+			tmpResult = new ArrayList<List<Component>>();
+			for (int i = 0; i < components.size() - 1; i++) {
+				for (int j = i + 1; j < components.size(); j++) {
+					List<Component> newChain = checkNeighbours(
+							components.get(i), components.get(j));
+					if (newChain != null && !listContains(components, newChain)
+							&& !listContains(tmpResult, newChain)) {
+						tmpResult.add(newChain);
+					}
+				}
+			}
+
+			if (tmpResult.size() > 0) {
+				components.addAll(tmpResult);
+			}
+		} while (tmpResult.size() > 0);
+		return components;
+	}
+
+	private static boolean listsEqual(List<Component> l1, List<Component> l2) {
+		for (Component c : l1) {
+			if (!l2.contains(c)) {
+				return false;
+			}
+		}
+		for (Component c : l2) {
+			if (!l1.contains(c)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private static boolean listContains(List<List<Component>> l1,
+			List<Component> l2) {
+		for (List<Component> c : l1) {
+			if (listsEqual(c, l2)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public List<Component> checkNeighbours(List<Component> c1,
+			List<Component> c2) {
+		List<Component> result = new ArrayList<Component>();
+		boolean isSingle = false;
+		for (Component component : c1) {
+			if (c2.contains(component)) {
+				if (isSingle == true) {
+					return null;
+				}
+				isSingle = true;
+				if (component.getEndOfChain() == true) {
+					Component component2 = new Node(component);
+					for (Component c : c1) {
+						if (!c.equals(component)) {
+							result.add(new Node(c));
+						}
+					}
+					component2.setEndOfChain(false);
+					result.add(component2);
+					for (Component c : c2) {
+						if (!c.equals(component)) {
+							result.add(new Node(c));
+						}
+					}
+				}
+			}
+		}
+		return result.size() > 0 ? result : null;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + index;
+		result = prime * result + value;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Node other = (Node) obj;
+		if (index != other.index)
+			return false;
+		if (value != other.value)
+			return false;
+		return true;
+	}
+
+	public List<Integer> getParentCode() {
+		return parentCode;
+	}
+
+	public void setParentCode(List<Integer> parentCode) {
+		this.parentCode = parentCode;
+	}
+
 }

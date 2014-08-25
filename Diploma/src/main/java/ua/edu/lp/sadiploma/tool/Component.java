@@ -32,4 +32,14 @@ public interface Component {
 	int getValue();
 
 	int[][] createTable(List<Integer> parentCode);
+
+	boolean getEndOfChain();
+
+	void setEndOfChain(boolean endOfChain);
+
+	List<Component> checkNeighbours(List<Component> c1, List<Component> c2);
+
+	List<List<Component>> getAllCombinations(Component root);
+
+	int getIndex();
 }
