@@ -42,4 +42,8 @@ public interface Component {
 	List<List<Component>> getAllCombinations(Component root);
 
 	int getIndex();
+
+	List<Integer> getParentCode();
+
+	void setParentCode(List<Integer> parentCode);
 }

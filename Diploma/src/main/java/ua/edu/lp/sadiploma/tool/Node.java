@@ -152,6 +152,7 @@ public class Node implements Component {
 		System.out.println(this.parentCode + "\n"
 				+ Arrays.toString(dataArrayInt));
 		Component root = new Node(dataArrayInt[0]);
+		root.setParentCode(this.parentCode);
 		for (int i = 1; i < dataArrayInt.length; i++) {
 			Component component = root.findComponent(this.parentCode.get(i));
 			component.addComponent(new Node(i + 1, dataArrayInt[i], component));
@@ -200,7 +201,8 @@ public class Node implements Component {
 	@Override
 	public List<List<Component>> getAllCombinations(Component root) {
 		List<List<Component>> components = new ArrayList<List<Component>>();
-		int[][] matrix = root.createTable(this.parentCode);
+		System.out.println("root parentCode: "+root.getParentCode());
+		int[][] matrix = root.createTable(root.getParentCode());
 		for (int row = 0; row < matrix.length; row++) {
 			for (int column = 0; column < matrix[0].length; column++) {
 				if (matrix[row][column] == 1) {
@@ -314,10 +316,12 @@ public class Node implements Component {
 		return true;
 	}
 
+	@Override
 	public List<Integer> getParentCode() {
 		return parentCode;
 	}
 
+	@Override
 	public void setParentCode(List<Integer> parentCode) {
 		this.parentCode = parentCode;
 	}
