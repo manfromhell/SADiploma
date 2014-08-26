@@ -201,7 +201,6 @@ public class Node implements Component {
 	@Override
 	public List<List<Component>> getAllCombinations(Component root) {
 		List<List<Component>> components = new ArrayList<List<Component>>();
-		System.out.println("root parentCode: "+root.getParentCode());
 		int[][] matrix = root.createTable(root.getParentCode());
 		for (int row = 0; row < matrix.length; row++) {
 			for (int column = 0; column < matrix[0].length; column++) {
@@ -233,9 +232,17 @@ public class Node implements Component {
 				components.addAll(tmpResult);
 			}
 		} while (tmpResult.size() > 0);
+		
+		for (Integer i : root.getAllValues()) {
+			List<Component> l = new ArrayList<Component>();
+			l.add(new Node(i,i,null));
+			components.add(l);
+		}
 		return components;
+		
 	}
 
+	
 	private static boolean listsEqual(List<Component> l1, List<Component> l2) {
 		for (Component c : l1) {
 			if (!l2.contains(c)) {

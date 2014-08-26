@@ -22,11 +22,21 @@ public class Main {
 		System.err.println(component);*/
 		
 //		System.out.println(component.getAllCombinations(component));
+		System.out.println("All combinations: ");
 		for (List<Component> list : component.getAllCombinations(component)) {
 			for (Component c : list) {
 				System.out.print(c.getIndex()+" ");
 			}
 			System.out.println();
+		}
+
+		System.out.println("All sums:");
+		for (List<Component> list : component.getAllCombinations(component)) {
+			int result = 0;
+			for (Component c : list) {
+				result+=c.getValue();
+			}
+			System.out.println(result);
 		}
 		
 	}
