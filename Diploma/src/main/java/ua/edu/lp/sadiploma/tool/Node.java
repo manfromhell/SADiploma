@@ -2,6 +2,7 @@ package ua.edu.lp.sadiploma.tool;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class Node implements Component {
@@ -232,17 +233,17 @@ public class Node implements Component {
 				components.addAll(tmpResult);
 			}
 		} while (tmpResult.size() > 0);
-		
+
 		for (Integer i : root.getAllValues()) {
 			List<Component> l = new ArrayList<Component>();
-			l.add(new Node(i,i,null));
+			l.add(new Node(i, i, null));
 			components.add(l);
 		}
+		Collections.sort(components, new ComponentListComparator());
 		return components;
-		
+
 	}
 
-	
 	private static boolean listsEqual(List<Component> l1, List<Component> l2) {
 		for (Component c : l1) {
 			if (!l2.contains(c)) {
@@ -278,7 +279,8 @@ public class Node implements Component {
 					return null;
 				}
 				isSingle = true;
-				if (component.getEndOfChain() == true) {
+				if ((component.getEndOfChain() == true)
+						&& (c2.get(c2.indexOf(component)).getEndOfChain())) {
 					Component component2 = new Node(component);
 					for (Component c : c1) {
 						if (!c.equals(component)) {
@@ -331,6 +333,11 @@ public class Node implements Component {
 	@Override
 	public void setParentCode(List<Integer> parentCode) {
 		this.parentCode = parentCode;
+	}
+
+	@Override
+	public int compareTo(Component o) {
+		return Integer.compare(this.index, o.getIndex());
 	}
 
 }

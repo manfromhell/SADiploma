@@ -13,8 +13,8 @@ public class Main {
 		 */
 		//Component component = new Node().generateTree("0,1,1,1,3,3,4,6",
 				//"1,2,3,4,5,6,7,8");
-		Component component = new Node().generateTree("0,1,1,3",
-				"1,2,3,4");
+		Component component = new Node().generateTree("0,1,1,1,3,3,4,6",
+				"1,2,3,4,5,6,7,8");
 		System.out.println(component);
 		/*
 		System.out.println(component.getSize());
