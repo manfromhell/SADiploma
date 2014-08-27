@@ -13,7 +13,7 @@ public class Main {
 		 */
 		//Component component = new Node().generateTree("0,1,1,1,3,3,4,6",
 				//"1,2,3,4,5,6,7,8");
-		Component component = new Node().generateTree("0,1,1,1,3,3,4,6",
+		Component component = new Node().generateTree("0 1 2 3 4 1 6 7",
 				"1,2,3,4,5,6,7,8");
 		System.out.println(component);
 		/*
@@ -31,13 +31,8 @@ public class Main {
 		}
 
 		System.out.println("All sums:");
-		for (List<Component> list : component.getAllCombinations(component)) {
-			int result = 0;
-			for (Component c : list) {
-				result+=c.getValue();
-			}
-			System.out.println(result);
-		}
-		
+		Bundle bundle = new TreeBundle(component);
+		List<Integer> allCombinations = bundle.generateCombinations();
+		System.out.println(allCombinations);
 	}
 }

@@ -12,26 +12,16 @@ public class TreeBundle implements Bundle {
 
 	@Override
 	public List<Integer> generateCombinations() {
-
-		// TODO rewrite totally
 		List<Integer> allNumbers = new ArrayList<Integer>();
-
-		for (int k = 0; k < getDataLength(); k++) { // current numberposition 
-			// List<Integer> tmpList = new ArrayList<Integer>(); int
-			int tmpSum = 0;
-			for (int i = 1; i < getDataLength(); i++) { // count of numbers
-				// for sum tmpSum = 0; for (int j = 0; j < i; j++) { //counter
-				// for sum
-				tmpSum += this.getData((i + k) % this.getDataLength()).getValue();
+		Component component = new Node();
+		List<List<Component>> combinations = component.getAllCombinations(data);
+		for (List<Component> list : combinations) {
+			int result = 0;
+			for (Component c : list) {
+				result+=c.getValue();
 			}
-			allNumbers.add(tmpSum);
+			allNumbers.add(result);
 		}
-		int last = 0;
-		for (int i : this.data.getAllValues()) {
-			last += i;
-		}
-		allNumbers.add(last);
-
 		return allNumbers;
 	}
 
