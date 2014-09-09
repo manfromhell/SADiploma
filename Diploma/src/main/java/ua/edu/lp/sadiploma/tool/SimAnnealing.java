@@ -9,16 +9,16 @@ public class SimAnnealing {
 	private static int ITERATIONS_AT_TEMPERATURE;
 	private static double GAPS_KOEF;
 	private static double REP_KOEF;
-//	private static int TYPE;
+	// private static int TYPE;
 
 	private static Bundle bundle;
-	private static BundleType bundleType;
+	// private static BundleType bundleType;
 
 	private static Solution currentSolution;
 	private static Solution workingSolution;
 	private static Solution bestSolution;
 
-	private static double simulatedAnnealingAlgorithm(Component component) {
+	public double simulatedAnnealingAlgorithm(Component component) {
 		boolean useNew = false;
 		double temperature = INITIAL_TEMPERATURE;
 		currentSolution.setSolution(new Solution(component));
@@ -73,9 +73,8 @@ public class SimAnnealing {
 				}
 
 				if (bestSolution.getSolutionEnergy() == 0) {
-					System.out.print(bestSolution + "\t������: "
+					System.out.print(bestSolution + "\t energy: "
 							+ bestSolution.getSolutionEnergy());
-					System.out.println("\t\t ��������� ����'����: ������");
 					return bestSolution.getSolutionEnergy();
 				}
 			}
