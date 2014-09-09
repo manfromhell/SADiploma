@@ -29,13 +29,13 @@ public class Main {
 		 */
 
 		// System.out.println(component.getAllCombinations(component));
-		System.out.println("All combinations: ");
-		for (List<Component> list : component.getAllCombinations(component)) {
-			for (Component c : list) {
-				System.out.print(c.getIndex() + " ");
-			}
-			System.out.println();
-		}
+//		System.out.println("All combinations: ");
+//		for (List<Component> list : component.getAllCombinations(component)) {
+//			for (Component c : list) {
+//				System.out.print(c.getIndex() + " ");
+//			}
+//			System.out.println();
+//		}
 
 		System.out.println("All sums:");
 		Bundle bundle = new TreeBundle(component);
@@ -43,11 +43,7 @@ public class Main {
 		System.out.println(allCombinations);
 		
 		Solution solution = new Solution(component,1,100);
-		solution.computeTargetFunction();
-		System.out.println(solution.toString());
-		System.out.println(solution.getBundle().getComponent().getAllValues());
 		solution.randomChange();
-		solution.computeTargetFunction();
 		System.out.println(solution.toString());
 	}
 }
