@@ -9,8 +9,6 @@ public interface Component extends Comparable<Component>{
 
 	public Component findComponent(int index);
 
-	public Component generateTree(String parentCode, String data);
-
 	public Component getRoot();
 
 	public void setValue(int value);
@@ -46,4 +44,6 @@ public interface Component extends Comparable<Component>{
 	List<Integer> getParentCode();
 
 	void setParentCode(List<Integer> parentCode);
+	
+	void swap(Component component);
 }

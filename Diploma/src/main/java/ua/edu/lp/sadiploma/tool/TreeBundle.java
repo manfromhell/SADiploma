@@ -4,17 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TreeBundle implements Bundle {
-	private Component data;
+	private Component component;
 
-	public TreeBundle(Component data) {
-		this.data = data;
+	public TreeBundle(Component component) {
+		this.component = component;
 	}
 
 	@Override
 	public List<Integer> generateCombinations() {
 		List<Integer> allNumbers = new ArrayList<Integer>();
-		Component component = new Node();
-		List<List<Component>> combinations = component.getAllCombinations(data);
+		List<List<Component>> combinations = component.getAllCombinations(component);
 		for (List<Component> list : combinations) {
 			int result = 0;
 			for (Component c : list) {
@@ -38,39 +37,39 @@ public class TreeBundle implements Bundle {
 
 	@Override
 	public Component getData(int i) {
-		return data.getRoot().findComponent(i);
+		return component.getRoot().findComponent(i);
 	}
 
 	public int getDataLength() {
-		return data.getAllValues().size();
+		return component.getSize();
 	}
 
 	@Override
 	public String toString() {
-		return data.toString();
+		return component.toString();
 
 	}
 
 	@Override
 	public Component getData() {
-		return data;
+		return component;
 	}
 
 	@Override
 	public void setData(Component data) {
-		this.data = data;
+		this.component = data;
 
 	}
 
 	@Override
 	public void setData(int index, int value) {
-		this.data.getRoot().findComponent(index).setValue(value);
+		this.component.getRoot().findComponent(index).setValue(value);
 	}
 
 	@Override
 	public int getDataSum() {
 		int result = 0;
-		for (int value : this.data.getAllValues()) {
+		for (int value : this.component.getAllValues()) {
 			result += value;
 		}
 		return result;
@@ -78,7 +77,7 @@ public class TreeBundle implements Bundle {
 
 	@Override
 	public boolean hasRepeats() {
-		List<Integer> intData = data.getAllValues();
+		List<Integer> intData = component.getAllValues();
 		for (int i = 0; i < intData.size() - 1; i++) {
 			for (int j = i + 1; j < intData.size(); j++) {
 				if (intData.get(i).equals(intData.get(j))) {
@@ -91,11 +90,27 @@ public class TreeBundle implements Bundle {
 
 	@Override
 	public boolean hasNegatives() {
-		for (int val : data.getAllValues()) {
+		for (int val : component.getAllValues()) {
 			if (val < 1) {
 				return true;
 			}
 		}
 		return false;
 	};
+	/**
+	 * @return the component
+	 */
+	@Override
+	public Component getComponent() {
+		return component;
+	}
+	
+	/**
+	 * @param component the component to set
+	 */
+	@Override
+	public void setComponent(Component component) {
+		this.component = component;
+	}
 }
+
