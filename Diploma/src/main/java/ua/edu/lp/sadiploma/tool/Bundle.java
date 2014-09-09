@@ -11,8 +11,8 @@ public interface Bundle extends Cloneable{
 	public void setData(Component data);
 	public void setData(int index, int value);
 	public BundleType getBundleType();
-	public Bundle clone();
 	boolean hasRepeats();
+	Object clone();
 	boolean hasNegatives();
 	List<Integer> generateCombinations();
 	Component getComponent();

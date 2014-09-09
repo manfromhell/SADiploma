@@ -7,17 +7,18 @@ public class TreeBundle implements Bundle {
 	private Component component;
 
 	public TreeBundle(Component component) {
-		this.component = component;
+		this.component = new Node(component);
 	}
 
 	@Override
 	public List<Integer> generateCombinations() {
 		List<Integer> allNumbers = new ArrayList<Integer>();
-		List<List<Component>> combinations = component.getAllCombinations(component);
+		List<List<Component>> combinations = component
+				.getAllCombinations(component);
 		for (List<Component> list : combinations) {
 			int result = 0;
 			for (Component c : list) {
-				result+=c.getValue();
+				result += c.getValue();
 			}
 			allNumbers.add(result);
 		}
@@ -97,6 +98,7 @@ public class TreeBundle implements Bundle {
 		}
 		return false;
 	};
+
 	/**
 	 * @return the component
 	 */
@@ -104,13 +106,13 @@ public class TreeBundle implements Bundle {
 	public Component getComponent() {
 		return component;
 	}
-	
+
 	/**
-	 * @param component the component to set
+	 * @param component
+	 *            the component to set
 	 */
 	@Override
 	public void setComponent(Component component) {
 		this.component = component;
 	}
 }
-

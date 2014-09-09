@@ -2,7 +2,7 @@ package ua.edu.lp.sadiploma.tool;
 
 import java.util.List;
 
-public interface Component extends Comparable<Component>{
+public interface Component extends Comparable<Component>, Cloneable{
 	public void addComponent(Component component);
 
 	public void removeComponent(Component component);

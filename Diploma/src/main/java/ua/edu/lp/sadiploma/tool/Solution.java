@@ -51,43 +51,40 @@ public class Solution {
 		return this.solutionEnergy;
 	}
 
+	/**
+	 * Get two different random numbers
+	 * 		and change them
+	 */
 	public void randomChange() {
-		int temp = 0;
-		int x = 0;
-		int y = 0;
 
-		// Get two different random numbers.
-		x = new Random().nextInt(this.bundle.getDataLength());
-		y = getExclusiveRandomNumber(this.bundle.getDataLength(), x);
-
-		Bundle tmpBundle = bundle.clone();
+		Bundle tmpBundle = null;
 		do {
-			tmpBundle = bundle.clone();
-			int randomValue = new Random()
-					.nextInt(this.bundle.getDataSum() / 2);
-			randomValue = (this.bundle.getData(x).getValue() > this.bundle
-					.getData(y).getValue()) ? randomValue : -randomValue;
+			int x = new Random().nextInt(this.bundle.getDataLength()) + 1;
+			int y = getExclusiveRandomNumber(this.bundle.getDataLength(), x);
+			tmpBundle = new TreeBundle(bundle.getComponent());
+			int randomValue = new Random().nextInt(tmpBundle.getDataSum() / 2) + 1;
+			randomValue = (tmpBundle.getData(x).getValue() > tmpBundle.getData(
+					y).getValue()) ? randomValue : -randomValue;
+			tmpBundle.setData(x, this.bundle.getData(x).getValue()
+					- randomValue);
+			tmpBundle.setData(y, this.bundle.getData(y).getValue()
+					+ randomValue);
 
-			temp = tmpBundle.getData(x).getValue() - randomValue;
-			tmpBundle.setData(x, tmpBundle.getData(y).getValue() + randomValue);
-			tmpBundle.setData(y, temp);
-
-		} while ((tmpBundle.getDataSum() != bundle.getDataSum())
-				|| (tmpBundle.hasRepeats()) || (tmpBundle.hasNegatives()));
-		this.bundle = tmpBundle.clone();
+		} while ((tmpBundle.hasRepeats()) || (tmpBundle.hasNegatives()));
+		this.bundle = (Bundle) tmpBundle.clone();
 
 		return;
 	}
 
 	private static int getExclusiveRandomNumber(final int high, final int except) {
-		int getRand = 0;
+		int getRand = 1;
 		do {
-			getRand = new Random().nextInt(high);
+			getRand = new Random().nextInt(high - 1) + 1;
 		} while (getRand == except);
 		return getRand;
 	}
 
-	public void computeEnergy() {
+	public void computeTargetFunction() {
 		int gaps = 0;
 		int repeats = 0;
 
@@ -118,8 +115,8 @@ public class Solution {
 			}
 		}
 
-		// System.out.println("gaps " + gaps + " repeats " + repeats
-		// + " max number " + allNumbers.get(allNumbers.size() - 1));
+		System.out.println("gaps " + gaps + " repeats " + repeats
+				+ " max number " + allNumbers.get(allNumbers.size() - 1));
 		this.solutionEnergy = gaps * GAPS_KOEF + repeats * REP_KOEF; // Complete
 		return;
 	}
@@ -134,6 +131,21 @@ public class Solution {
 		for (int i : tmpArray) {
 			list.add(i);
 		}
+	}
+
+	/**
+	 * @return the bundle
+	 */
+	public Bundle getBundle() {
+		return bundle;
+	}
+
+	/**
+	 * @param bundle
+	 *            the bundle to set
+	 */
+	public void setBundle(Bundle bundle) {
+		this.bundle = bundle;
 	}
 
 }

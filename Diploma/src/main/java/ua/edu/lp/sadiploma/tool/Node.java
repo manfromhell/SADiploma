@@ -12,7 +12,7 @@ public class Node implements Component {
 	private List<Integer> parentCode;
 
 	private Component parentNode;
-	private List<Component> components = new ArrayList<Component>();
+	private List<Component> components;
 
 	/**
 	 * @param index
@@ -26,8 +26,36 @@ public class Node implements Component {
 		this.index = component.getIndex();
 		this.value = component.getValue();
 		this.endOfChain = component.getEndOfChain();
-		this.parentNode = component.getParentNode();
-		this.components = component.getComponents();
+		if (component.getParentNode() != null){
+			this.parentNode = new Node(component.getParentNode());
+		}
+		if (component.getParentCode() != null){
+			this.parentCode = new ArrayList<Integer>(component.getParentCode());
+		}
+		if (component.getComponents() == null){
+			this.components = new ArrayList<Component>();
+		} else{
+			this.components = new ArrayList<Component>();
+			for (Component tmpComponent : component.getComponents()){
+				this.components.add(copyComponent(tmpComponent, null));
+			 }
+		}
+	}
+
+	@Override
+	protected Component clone() {
+		return copyComponent(this, null);
+	}
+
+	public static Component copyComponent(Component source,Component newComponentParent) {
+		Component result = new Node(source.getIndex(), source.getValue(),
+				newComponentParent);
+		if (source.getComponents() != null) {
+			for (Component tmpComponent : source.getComponents()) {
+				result.addComponent(copyComponent(tmpComponent,result));
+			}
+		}
+		return result;
 	}
 
 	/**
@@ -51,21 +79,24 @@ public class Node implements Component {
 		this.index = index;
 		this.value = value;
 		this.parentNode = parentNode;
-		if ((parentNode != null)&&(parentNode.getParentCode() != null)) {
+		if ((parentNode != null) && (parentNode.getParentCode() != null)) {
 			this.parentCode = parentNode.getParentCode();
 		}
+		this.components = new ArrayList<Component>();
 	}
 
 	public Node(int value) {
 		this.index = 1;
 		this.value = value;
 		this.parentNode = null;
+		this.components = new ArrayList<Component>();
 	}
 
 	public Node() {
 		this.index = 1;
 		this.value = 0;
 		this.parentNode = null;
+		this.components = new ArrayList<Component>();
 
 	}
 

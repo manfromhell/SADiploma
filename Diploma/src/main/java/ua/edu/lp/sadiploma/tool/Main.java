@@ -43,7 +43,11 @@ public class Main {
 		System.out.println(allCombinations);
 		
 		Solution solution = new Solution(component,1,100);
-		solution.computeEnergy();
-		System.out.println(solution.getSolutionEnergy());
+		solution.computeTargetFunction();
+		System.out.println(solution.toString());
+		System.out.println(solution.getBundle().getComponent().getAllValues());
+		solution.randomChange();
+		solution.computeTargetFunction();
+		System.out.println(solution.toString());
 	}
 }
