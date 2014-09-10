@@ -2,30 +2,36 @@ package ua.edu.lp.sadiploma.tool;
 
 import java.util.Random;
 
-public class SimAnnealing {
-	private static double INITIAL_TEMPERATURE;
-	private static double FINAL_TEMPERATURE;
-	private static double ALPHA;
-	private static int ITERATIONS_AT_TEMPERATURE;
-	private static double GAPS_KOEF;
-	private static double REP_KOEF;
+public class SimAnnealing extends Thread {
+	private SAConfig config;
+	private Component component;
 	// private static int TYPE;
 
-	private static Bundle bundle;
+	private Bundle bundle;
 	// private static BundleType bundleType;
 
-	private static Solution currentSolution;
-	private static Solution workingSolution;
-	private static Solution bestSolution;
+	private Solution currentSolution;
+	private Solution workingSolution;
+	private Solution bestSolution;
 
-	public double simulatedAnnealingAlgorithm(Component component) {
+	public SimAnnealing(Component component, SAConfig config) {
+		this.config = config;
+		this.component = component;
+		bundle = new TreeBundle(component);
+	}
+
+	@Override
+	public void run() {
 		boolean useNew = false;
-		double temperature = INITIAL_TEMPERATURE;
-		currentSolution.setSolution(new Solution(component));
-		workingSolution.setSolution(new Solution(component));
-		bestSolution.setSolution(new Solution(component));
-		// Initial setup of the solution.
-		currentSolution.setBundle(bundle);
+		currentSolution = new Solution(component, config
+				.getGapsKoef(), config.getRepKoef());
+
+		workingSolution = new Solution(component, config
+				.getGapsKoef(), config.getRepKoef());
+
+		bestSolution = new Solution(component, config.getGapsKoef(),
+				config.getRepKoef());
+
 		// Randomly perturb the solution.
 		for (int i = 0; i < bundle.getDataLength(); i++) {
 			currentSolution.randomChange();
@@ -36,8 +42,9 @@ public class SimAnnealing {
 		bestSolution.setSolution(currentSolution);
 		workingSolution.setSolution(currentSolution);
 
-		while (temperature > FINAL_TEMPERATURE) {
-			for (int i = 0; i < ITERATIONS_AT_TEMPERATURE; i++) {
+		double temperature = config.getInitialTemperature();
+		while (temperature > config.getFinalTemperature()) {
+			for (int i = 0; i < config.getIterationsAtTemperature(); i++) {
 				useNew = false;
 				workingSolution.randomChange();
 				workingSolution.computeTargetFunction();
@@ -75,13 +82,26 @@ public class SimAnnealing {
 				if (bestSolution.getSolutionEnergy() == 0) {
 					System.out.print(bestSolution + "\t energy: "
 							+ bestSolution.getSolutionEnergy());
-					return bestSolution.getSolutionEnergy();
 				}
 			}
-			temperature *= ALPHA;
+			temperature *= config.getAlpha();
 		}
 
-		return bestSolution.getSolutionEnergy();
+	}
+
+	/**
+	 * @return the bestSolution
+	 */
+	public Solution getBestSolution() {
+		return bestSolution;
+	}
+
+	/**
+	 * @param bestSolution
+	 *            the bestSolution to set
+	 */
+	public void setBestSolution(Solution bestSolution) {
+		this.bestSolution = bestSolution;
 	}
 
 }
