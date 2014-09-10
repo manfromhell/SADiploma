@@ -115,8 +115,8 @@ public class Solution {
 			}
 		}
 
-		System.out.println("gaps " + gaps + " repeats " + repeats
-				+ " max number " + allNumbers.get(allNumbers.size() - 1));
+//		System.out.println("gaps " + gaps + " repeats " + repeats
+//				+ " max number " + allNumbers.get(allNumbers.size() - 1));
 		this.solutionEnergy = gaps * GAPS_KOEF + repeats * REP_KOEF; // Complete
 		return;
 	}

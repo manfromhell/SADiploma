@@ -32,11 +32,6 @@ public class SimAnnealing extends Thread {
 		bestSolution = new Solution(component, config.getGapsKoef(),
 				config.getRepKoef());
 
-		// Randomly perturb the solution.
-		for (int i = 0; i < bundle.getDataLength(); i++) {
-			currentSolution.randomChange();
-		}
-
 		currentSolution.computeTargetFunction();
 
 		bestSolution.setSolution(currentSolution);

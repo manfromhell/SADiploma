@@ -12,8 +12,8 @@ public class Main {
 		 * Node(4,4,root)); System.out.println("Root!: "+root);
 		 * System.out.println("Found: "+root.findComponent(3));
 		 */
-		 Component component = Node.generateTree("0,1,1,1,3,3,4,6",
-		 "1,2,8,6,4,14,5,17");
+		 Component component = Node.generateTree("0,1,2,3,4,5,6",
+		 "1 3 5 6 7 10 2");
 		// Component component = Node.generateTree("0 1 1 1 1 1 1 1",
 		// "1,2,3,4,5,6,7,8");
 //		Component component = Node.generateTree("0 1 2 3 4 1 6 7",
