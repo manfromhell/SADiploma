@@ -2,6 +2,7 @@ package ua.edu.lp.sadiploma.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import ua.edu.lp.sadiploma.entity.InputData;
 import ua.edu.lp.sadiploma.entity.OutputData;
 import ua.edu.lp.sadiploma.service.InputDataService;
+import ua.edu.lp.sadiploma.service.OutputDataService;
 
 /**
  * Handles requests for the application home page.
@@ -26,6 +28,9 @@ public class HomeController {
 	
 	@Autowired
 	private InputDataService inputDataService;
+	
+	@Autowired
+	private OutputDataService outputDataService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -51,7 +56,8 @@ public class HomeController {
 	public String setData(Model model, @ModelAttribute("inputData") InputData inputData, BindingResult result) {
 		System.err.println("Input data:  "+inputData);
 		inputDataService.create(inputData);
-		return "home";
+		model.addAttribute("outputList", outputDataService.findAll());
+		return "output";
 	}
 	
 	@RequestMapping(value = "/lp/main", method = RequestMethod.GET)

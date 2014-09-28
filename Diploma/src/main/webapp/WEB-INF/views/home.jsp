@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<form:form commandName="inputData" action="setData" method="POST">
+<form:form commandName="inputData" action="setData" method="POST" class="form-horizontal form-validate">
 <form:label path="parentCode">Parent code</form:label>
 <form:input path="parentCode" value="0,1,2,3,4,5,6"/>
 <br><br>

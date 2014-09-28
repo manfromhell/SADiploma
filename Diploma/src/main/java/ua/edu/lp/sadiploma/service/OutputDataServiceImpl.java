@@ -9,7 +9,7 @@ import ua.edu.lp.sadiploma.dao.OutputDataDao;
 import ua.edu.lp.sadiploma.entity.OutputData;
 
 @Service
-public class OutputDataServiceImpl implements GenericService<OutputData> {
+public class OutputDataServiceImpl implements OutputDataService {
 	
 	@Autowired
 	private OutputDataDao outputDataDao;
