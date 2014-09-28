@@ -1,6 +1,10 @@
 package ua.edu.lp.sadiploma.tool;
 
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 
 public class Main {
 
@@ -50,7 +54,14 @@ public class Main {
 //		solution.randomChange();
 //		System.out.println(solution.toString());
 		SimAnnealing simAnnealing = new SimAnnealing(component, new SAConfig(10, 100, 0.5, 5, 1.0, 100.0));
-		simAnnealing.run();
+		simAnnealing.start();
+//		try {
+//			simAnnealing.join();
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
+		ExecutorService executor = Executors.newFixedThreadPool(2);
+		executor.execute(simAnnealing);
 		System.out.println("best:"+simAnnealing.getBestSolution()+"\nwith energy "+simAnnealing.getBestSolution().getSolutionEnergy());
 		allCombinations = simAnnealing.getBestSolution().getBundle().generateCombinations();
 		System.out.println(allCombinations);

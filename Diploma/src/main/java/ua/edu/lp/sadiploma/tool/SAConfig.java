@@ -4,7 +4,7 @@ public class SAConfig {
 	private double INITIAL_TEMPERATURE;
 	private double FINAL_TEMPERATURE;
 	private double ALPHA;
-	private int ITERATIONS_AT_TEMPERATURE;
+	private int ITERATIONS_PER_TEMPERATURE;
 	private double GAPS_KOEF;
 	private double REP_KOEF;
 
@@ -15,7 +15,7 @@ public class SAConfig {
 		INITIAL_TEMPERATURE = initialTemperature;
 		FINAL_TEMPERATURE = finalTemperature;
 		ALPHA = alpha;
-		ITERATIONS_AT_TEMPERATURE = iterationsAtTemperature;
+		ITERATIONS_PER_TEMPERATURE = iterationsAtTemperature;
 		GAPS_KOEF = gapsKoef;
 		REP_KOEF = repKoef;
 	}
@@ -69,7 +69,7 @@ public class SAConfig {
 	 * @return the iTERATIONS_AT_TEMPERATURE
 	 */
 	public int getIterationsAtTemperature() {
-		return ITERATIONS_AT_TEMPERATURE;
+		return ITERATIONS_PER_TEMPERATURE;
 	}
 
 	/**
@@ -77,7 +77,7 @@ public class SAConfig {
 	 *            the iTERATIONS_AT_TEMPERATURE to set
 	 */
 	public void setIterationsAtTemperature(int iterationsAtTemperature) {
-		ITERATIONS_AT_TEMPERATURE = iterationsAtTemperature;
+		ITERATIONS_PER_TEMPERATURE = iterationsAtTemperature;
 	}
 
 	/**
