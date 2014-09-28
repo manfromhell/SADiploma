@@ -28,6 +28,10 @@ public class OutputData{
 		
 	}
 	
+	public OutputData(String resultNumbers){
+		this.resultNumbers=resultNumbers;
+	}
+	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	@Column(name = "ID")

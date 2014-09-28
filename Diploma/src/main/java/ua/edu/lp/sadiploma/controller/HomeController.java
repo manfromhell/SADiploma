@@ -6,6 +6,7 @@ import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,12 +15,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import ua.edu.lp.sadiploma.entity.InputData;
+import ua.edu.lp.sadiploma.entity.OutputData;
+import ua.edu.lp.sadiploma.service.InputDataService;
 
 /**
  * Handles requests for the application home page.
  */
 @Controller
 public class HomeController {
+	
+	@Autowired
+	private InputDataService inputDataService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -42,8 +48,9 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value="/setData", method = RequestMethod.POST)
-	public String setData(@ModelAttribute("inputData") InputData inputData, BindingResult result) {
+	public String setData(Model model, @ModelAttribute("inputData") InputData inputData, BindingResult result) {
 		System.err.println("Input data:  "+inputData);
+		inputDataService.create(inputData);
 		return "home";
 	}
 	
