@@ -7,7 +7,9 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 @Repository
+@Transactional
 public abstract class GenericDaoImpl<T> implements GenericDao<T> {
 	@PersistenceContext
 	protected EntityManager entityManager;
