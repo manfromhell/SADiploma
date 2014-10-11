@@ -19,7 +19,7 @@ public class Solution {
 		 * int[n]); }
 		 */
 		bundle = new TreeBundle(component);
-		this.solutionEnergy = Double.MAX_VALUE;
+		this.solutionEnergy = computeTargetFunction();
 		GAPS_KOEF = 1;
 		REP_KOEF = 1;
 	}
@@ -84,7 +84,7 @@ public class Solution {
 		return getRand;
 	}
 
-	public void computeTargetFunction() {
+	public double computeTargetFunction() {
 		int gaps = 0;
 		int repeats = 0;
 
@@ -118,7 +118,7 @@ public class Solution {
 //		System.out.println("gaps " + gaps + " repeats " + repeats
 //				+ " max number " + allNumbers.get(allNumbers.size() - 1));
 		this.solutionEnergy = gaps * GAPS_KOEF + repeats * REP_KOEF; // Complete
-		return;
+		return this.solutionEnergy;
 	}
 
 	private static void sortList(List<Integer> list) {
