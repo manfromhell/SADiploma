@@ -7,7 +7,6 @@ public class SimAnnealing extends Thread {
 	private Component component;
 	// private static int TYPE;
 
-	private Bundle bundle;
 	// private static BundleType bundleType;
 
 	private Solution currentSolution;
@@ -17,7 +16,6 @@ public class SimAnnealing extends Thread {
 	public SimAnnealing(Component component, SAConfig config) {
 		this.config = config;
 		this.component = component;
-		bundle = new TreeBundle(component);
 	}
 
 	@Override
