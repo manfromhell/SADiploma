@@ -15,13 +15,9 @@ import javax.persistence.Table;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name="INPUT_DATA")
-public class InputData{
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 3975545484495454331L;
+@Table(name = "INPUT_DATA")
+public class InputData {
+
 	private String parentCode;
 	private String marks;
 	private int numberOfMarks;
@@ -33,16 +29,16 @@ public class InputData{
 	private double repCoef;
 	private long timeForComputing;
 	private long timeForOutputCurrentRes;
-	
+
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	@Column(name = "ID")
 	private Long id;
-	
+
 	@Column(name = "CREATED", insertable = false, nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-	@DateTimeFormat(pattern="dddd, dd MMMM yyyy	hh:mm tt")
+	@DateTimeFormat(pattern = "dddd, dd MMMM yyyy	hh:mm tt")
 	private Date created;
-	
+
 	/**
 	 * @return the iterationsPerTemperature
 	 */
@@ -51,16 +47,17 @@ public class InputData{
 	}
 
 	/**
-	 * @param iterationsPerTemperature the iterationsPerTemperature to set
+	 * @param iterationsPerTemperature
+	 *            the iterationsPerTemperature to set
 	 */
 	public void setIterationsPerTemperature(int iterationsPerTemperature) {
 		this.iterationsPerTemperature = iterationsPerTemperature;
 	}
 
 	public InputData() {
-		
+
 	}
-	
+
 	@OneToMany(mappedBy = "inputData", orphanRemoval = true)
 	private List<OutputData> outputData = new ArrayList<OutputData>();
 
@@ -72,7 +69,8 @@ public class InputData{
 	}
 
 	/**
-	 * @param parentCode the parentCode to set
+	 * @param parentCode
+	 *            the parentCode to set
 	 */
 	public void setParentCode(String parentCode) {
 		this.parentCode = parentCode;
@@ -86,7 +84,8 @@ public class InputData{
 	}
 
 	/**
-	 * @param numbers the numbers to set
+	 * @param numbers
+	 *            the numbers to set
 	 */
 	public void setNumbers(String numbers) {
 		this.marks = numbers;
@@ -100,7 +99,8 @@ public class InputData{
 	}
 
 	/**
-	 * @param initTemp the initTemp to set
+	 * @param initTemp
+	 *            the initTemp to set
 	 */
 	public void setInitTemp(double initTemp) {
 		this.initTemp = initTemp;
@@ -114,7 +114,8 @@ public class InputData{
 	}
 
 	/**
-	 * @param finalTemp the finalTemp to set
+	 * @param finalTemp
+	 *            the finalTemp to set
 	 */
 	public void setFinalTemp(double finalTemp) {
 		this.finalTemp = finalTemp;
@@ -128,7 +129,8 @@ public class InputData{
 	}
 
 	/**
-	 * @param tempIter the tempIter to set
+	 * @param tempIter
+	 *            the tempIter to set
 	 */
 	public void setTempIter(int tempIter) {
 		this.iterationsPerTemperature = tempIter;
@@ -142,7 +144,8 @@ public class InputData{
 	}
 
 	/**
-	 * @param timeForComputing the timeForComputing to set
+	 * @param timeForComputing
+	 *            the timeForComputing to set
 	 */
 	public void setTimeForComputing(long timeForComputing) {
 		this.timeForComputing = timeForComputing;
@@ -156,7 +159,8 @@ public class InputData{
 	}
 
 	/**
-	 * @param timeForOutputCurrentRes the timeForOutputCurrentRes to set
+	 * @param timeForOutputCurrentRes
+	 *            the timeForOutputCurrentRes to set
 	 */
 	public void setTimeForOutputCurrentRes(long timeForOutputCurrentRes) {
 		this.timeForOutputCurrentRes = timeForOutputCurrentRes;
@@ -186,22 +190,26 @@ public class InputData{
 		this.repCoef = repCoef;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "InputData [parentCode=" + parentCode
-				+ ", numbers=" + marks + ", initTemp=" + initTemp
-				+ ", finalTemp=" + finalTemp + ", iterationsPerTemperature="
-				+ iterationsPerTemperature + ", alpha=" + alpha + ", gapsCoef="
-				+ gapsCoef + ", repCoef=" + repCoef + ", timeForComputing="
-				+ timeForComputing + ", timeForOutputCurrentRes="
-				+ timeForOutputCurrentRes + ", id=" + id + ", created="
-				+ created + ", outputData=" + outputData + "]";
+		return "InputData [parentCode=" + parentCode + ", numbers=" + marks
+				+ ", initTemp=" + initTemp + ", finalTemp=" + finalTemp
+				+ ", iterationsPerTemperature=" + iterationsPerTemperature
+				+ ", alpha=" + alpha + ", gapsCoef=" + gapsCoef + ", repCoef="
+				+ repCoef + ", timeForComputing=" + timeForComputing
+				+ ", timeForOutputCurrentRes=" + timeForOutputCurrentRes
+				+ ", id=" + id + ", created=" + created + ", outputData="
+				+ outputData + "]";
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -235,7 +243,9 @@ public class InputData{
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -312,7 +322,8 @@ public class InputData{
 	}
 
 	/**
-	 * @param marks the marks to set
+	 * @param marks
+	 *            the marks to set
 	 */
 	public void setMarks(String marks) {
 		this.marks = marks;

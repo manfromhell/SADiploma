@@ -2,7 +2,6 @@ package ua.edu.lp.sadiploma.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import ua.edu.lp.sadiploma.entity.InputData;
-import ua.edu.lp.sadiploma.entity.OutputData;
 import ua.edu.lp.sadiploma.service.InputDataService;
 import ua.edu.lp.sadiploma.service.OutputDataService;
 

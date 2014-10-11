@@ -12,35 +12,31 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
-@Table(name="OUTPUT_DATA")
-public class OutputData{
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -2760008713023501484L;
+@Table(name = "OUTPUT_DATA")
+public class OutputData {
 	private Date startTime;
 	private Date finishTime;
 	private String resultNumbers;
-	
+
 	public OutputData() {
-		
+
 	}
-	
-	public OutputData(String resultNumbers){
-		this.resultNumbers=resultNumbers;
+
+	public OutputData(String resultNumbers) {
+		this.resultNumbers = resultNumbers;
 	}
-	
+
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	@Column(name = "ID")
 	private Long id;
-	
+
 	@Column(name = "CREATED", insertable = false, nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-	@DateTimeFormat(pattern="dddd, dd MMMM yyyy	hh:mm tt")
+	@DateTimeFormat(pattern = "dddd, dd MMMM yyyy	hh:mm tt")
 	private Date created;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "INPUT_DATA_ID")
 	private InputData inputData;
